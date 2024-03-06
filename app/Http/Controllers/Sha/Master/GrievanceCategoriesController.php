@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Master;
+namespace App\Http\Controllers\Sha\Master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Redirect;
 class GrievanceCategoriesController extends Controller
 {
     public function create() {
-        return view('admin.master.grievance_categories.create');
+        return view('sha.master.grievance_categories.create');
     }
 
     public function save(Request $request) {
@@ -29,6 +29,6 @@ class GrievanceCategoriesController extends Controller
     }
 
     public function index() {
-        return view('admin.master.grievance_categories.index');
+        return view('sha.master.grievance_categories.index');
     }
 }

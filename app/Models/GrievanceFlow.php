@@ -20,4 +20,11 @@ class GrievanceFlow extends Model
         'isa_remarks',
         'sha_remarks',
     ];
+
+    public static $rules = [
+        'grievance_id'      => 'required|exists:grievances,id',
+        'sha_user_id'       => 'exists:users,id',
+        'isa_user_id'       => 'exists:users,id',
+        'open_date'         => 'required',
+    ];
 }

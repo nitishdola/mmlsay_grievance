@@ -6,6 +6,15 @@
    <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
       <h2 class="mb-2 title-color">GRIEVANCE FORM</h2>
       <p class="mb-4">Fileds marked * are mendatory.</p>
+
+      @if ($errors->any())
+         {!! implode('', $errors->all('
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <span class="font-medium">Oops !</span> ::message
+            </div>
+         ')) !!}
+      @endif
+
       <form class="appoinment-form" action="{{ route('grievance.save') }}" method="post" enctype="multipart/form-data">
                 @csrf
          <div class="row">

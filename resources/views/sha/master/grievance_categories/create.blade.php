@@ -17,7 +17,7 @@
     <div class="row gy-4">
       <div class="col-xxl-3 col-md-6">
 
-      <form class="form-inline" action="{{ route('admin.master.grievance_category.save') }}" method="post">
+      <form class="form-inline" action="{{ route('sha.master.grievance_category.save') }}" method="post">
                 @csrf
         <div>
             <label for="basiInput" class="form-label">Grievance Category Name</label>

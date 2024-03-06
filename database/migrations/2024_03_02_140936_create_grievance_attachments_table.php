@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('grievance_attachments', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('grievance_flow_id', false, true);
+            $table->string('attachment_path');
+            $table->softDeletes(); 
             $table->timestamps();
+
+            $table->foreign('grievance_flow_id')->references('id')->on('grievance_flows')->onDelete('cascade');
         });
     }
 

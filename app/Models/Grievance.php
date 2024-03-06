@@ -11,6 +11,7 @@ class Grievance extends Model
 
     protected $fillable = [
         'ugn', 
+        'grievance_raise_date',
         'status',
         'enrolled_under_mmlsay',
         'member_id',
@@ -23,17 +24,17 @@ class Grievance extends Model
         'district_id',
         'grievance_category_id',
         'address',
-        'support_document_file',
-        'support_video_file',
+        'support_document_path',
+        'support_video_path',
         'grievance_description',
         'ip_address'
     ];
 
     public static $rules = [
-        'ugn'       => 'required|unique:grievances|max:255',
-        'status'    => 'required',
+        //'ugn'       => 'required|unique:grievances|max:255',
+        //'status'    => 'required',
         'enrolled_under_mmlsay'    => 'required',
-        'member_id'     => 'required',
+        //'member_id'     => 'required',
         'pan_number'    => 'required',
         'full_name'     => 'required',
         'employment_type'    => 'required|in:EMPLOYEE,PENSIONER',
@@ -43,10 +44,10 @@ class Grievance extends Model
         'district_id'       => 'required|exists:districts,id',
         'grievance_category_id'         => 'required|exists:grievance_categories,id',
         'address'           => 'required|max:1000',
-        'support_document_file'         => 'required',
-        'support_video_file'            => 'required',
+        'support_document'         => 'mimes:jpg,jpeg,png,bmp,pdf|max:102400',
+        'support_video'            => 'mimetypes:video/avi,video/mp4,video/mpeg,video/quicktime|max:102400',
         'grievance_description'       => 'required',
-        'ip_address'       => 'required',
+        //'ip_address'       => 'required',
     ];
 
     public function district()
