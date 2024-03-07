@@ -27,4 +27,15 @@ class GrievanceFlow extends Model
         'isa_user_id'       => 'exists:users,id',
         'open_date'         => 'required',
     ];
+
+    public function sha_user()
+    {
+        return $this->belongsTo('App\Models\User', 'sha_user_id');
+    }
+
+    public function isa_user()
+    {
+        return $this->belongsTo('App\Models\User', 'isa_user_id');
+    }
+
 }

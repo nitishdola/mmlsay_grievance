@@ -17,8 +17,8 @@ return new class extends Migration
             $table->bigInteger('grievance_id', false, true);
             $table->bigInteger('sha_user_id')->nullable();
             $table->bigInteger('isa_user_id')->nullable();
-            $table->date('isa_forward_date')->nullable();
-            $table->date('isa_resolve_date')->nullable();
+            $table->dateTime('isa_forward_date')->nullable();
+            $table->dateTime('isa_resolve_date')->nullable();
             $table->text('isa_remarks')->nullable();
             $table->text('sha_remarks')->nullable();
             $table->softDeletes(); 

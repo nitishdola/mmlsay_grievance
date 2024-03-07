@@ -29,7 +29,11 @@
                               </div>
                               <div class="flex-grow-1 ms-3">
                                   <p class="text-uppercase fw-semibold fs-12 text-muted mb-1"> Total Grievances</p>
-                                  <h4 class=" mb-0"><span class="counter-value" data-target="{{ $grievance_count }}">{{ $grievance_count }}</span></h4>
+                                  <h4 class=" mb-0">
+                                            <a href="{{ route('sha.grievance.index') }}">  
+                                                {{ $grievance_count }}
+                                            </a>
+                                    </h4>
                               </div>
                               
                           </div>

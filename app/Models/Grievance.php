@@ -60,4 +60,9 @@ class Grievance extends Model
         return $this->belongsTo('App\Models\Master\GrievanceCategory', 'grievance_category_id');
     }
 
+    public function grievance_flows()
+    {
+        return $this->hasMany('App\Models\GrievanceFlow');
+    }
+
 }

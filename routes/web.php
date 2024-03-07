@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Sha\Master\GrievanceCategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Sha\DashboardController;
+use App\Http\Controllers\Isa\IsaDashboardController;
 use App\Http\Controllers\Frontend\UserGrievancesController;
 use App\Http\Controllers\Sha\ShaGrievancesController;
+use App\Http\Controllers\Isa\IsaGrievancesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,10 +34,10 @@ Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 Route::get('sha/home', [DashboardController::class, 'dashboard'])->name('sha.home')->middleware('is_sha');
-Route::get('isa/home', [HomeController::class, 'isaHome'])->name('isa.home')->middleware('is_isa');
+Route::get('isa/home', [IsaDashboardController::class, 'dashboard'])->name('isa.home')->middleware('is_isa');
 
 
 Route::group(['prefix'=>'sha','as'=>'sha.', 'middleware' => 'is_sha'], function(){
@@ -52,6 +54,19 @@ Route::group(['prefix'=>'sha','as'=>'sha.', 'middleware' => 'is_sha'], function(
         Route::post('/save', [ShaGrievancesController::class, 'save'])->name('save');
         Route::get('/', [ShaGrievancesController::class, 'index'])->name('index');
         Route::get('/view/{id}', [ShaGrievancesController::class, 'view'])->name('view');
+        Route::post('/process/{id}', [ShaGrievancesController::class, 'process'])->name('process');
+    });
+
+});
+
+
+Route::group(['prefix'=>'isa','as'=>'isa.', 'middleware' => 'is_isa'], function(){
+
+    Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {
+        Route::get('/view-all', [IsaGrievancesController::class, 'index'])->name('index');
+        Route::get('/view-all-isa-resolved', [IsaGrievancesController::class, 'isaResolved'])->name('isa_resolved');
+        Route::get('/view/{id}', [IsaGrievancesController::class, 'view'])->name('view');
+        Route::post('/process/{id}', [IsaGrievancesController::class, 'process'])->name('process');
     });
 
 });

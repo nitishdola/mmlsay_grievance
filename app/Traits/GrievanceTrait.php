@@ -33,7 +33,14 @@ trait GrievanceTrait {
 
     public function forwardedToIsa() {
 
-      return Grievance::where('status', 'forwarded To ISA')->count();
+      return Grievance::where('status', 'Forward To ISA')->count();
     }
+
+    public function resolvedAtIsa() {
+
+      return Grievance::where('status', 'ISA Resolved')->count();
+    }
+
+    
 
 }
