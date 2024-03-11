@@ -44,18 +44,18 @@
                         <ul class="nav nav-sm flex-column">
                             
                             <li class="nav-item">
-                                <a href="apps-chat.html" class="nav-link" data-key="t-chat"> View All </a>
+                                <a href="{{ route('sha.grievance.index') }}" class="nav-link" data-key="t-chat"> View All </a>
                             </li>
                             
                             <li class="nav-item">
-                                <a href="apps-file-manager.html" class="nav-link"> <span data-key="t-file-manager">Pending at ISA</span></a>
+                                <a href="{{ route('sha.grievance.isa_pending') }}" class="nav-link"> <span data-key="t-file-manager">Pending at ISA</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="apps-todo.html" class="nav-link"> <span data-key="t-to-do">SHA Pending</span></a>
+                                <a href="{{ route('sha.grievance.sha_pending') }}" class="nav-link"> <span data-key="t-to-do">SHA Pending</span></a>
                             </li>
                             
                             <li class="nav-item">
-                                <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">Out of TAT</a>
+                                <a href="{{ route('sha.grievance.out_of_tat') }}" class="nav-link" data-key="t-api-key">Out of TAT</a>
                             </li>
                         </ul>
                     </div>

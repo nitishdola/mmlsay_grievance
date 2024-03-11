@@ -34,12 +34,12 @@
     <div id="layout-wrapper">
 
     <header id="page-topbar">
-        @include('layouts.backend.sha.navbar')
+        @include('layouts.backend.isa.navbar')
     </header>
 
 <!-- removeNotificationModal -->
         <!-- ========== App Menu ========== -->
-        @include('layouts.backend.sha.sidebar')
+        @include('layouts.backend.isa.sidebar')
         <!-- Left Sidebar End -->
         <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>

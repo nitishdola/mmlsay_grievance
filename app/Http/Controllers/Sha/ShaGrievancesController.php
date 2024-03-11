@@ -8,19 +8,20 @@ use App\Models\Grievance;
 use App\Models\GrievanceFlow;
 use App\Models\GrievanceAttachment;
 use App\Traits\ImageUploadTrait;
+use App\Traits\GrievanceTrait;
 use Validator, DB, Redirect, Crypt;
 
 class ShaGrievancesController extends Controller
 {
-    use ImageUploadTrait;
+    use ImageUploadTrait,GrievanceTrait;
 
     public function index(Request $request) {
-        $results = Grievance::orderBy('grievance_raise_date', 'DESC')->with('district', 'grievance_category')->whereNull('deleted_at')->paginate(1000);
+        $results = $this->allGrievancesDetails();
         return view('sha.grievances.index', compact('results'));
     }
 
     public function view($id) {
-        $result = Grievance::whereId($id)->with('district', 'grievance_category', 'grievance_flows', 'grievance_flows.sha_user', 'grievance_flows.isa_user')->first(); 
+        $result = $this->viewGrievance($id);
         return view('sha.grievances.view', compact('result'));
     }
 
@@ -80,5 +81,37 @@ class ShaGrievancesController extends Controller
 
         return Redirect::route('sha.grievance.index')->with(['message' => 'Grievance Processed', 'alert-class' => 'alert-success']);
     }
+
+    public function outOfTatGrievances() {
+        $results = $this->grievanceOutTatDetails();
+        return view('sha.grievances.index', compact('results'));
+    }
+
+    public function resolvedGrievances() {
+        $results = $this->allGrievancesDetails($status = 'Resolved');
+        return view('sha.grievances.index', compact('results'));
+    }
+    //Forward To ISA
+
+    public function pendingAtIsaGrievances() {
+        $results = $this->allGrievancesDetails($status = 'Forward To ISA');
+        return view('sha.grievances.index', compact('results'));
+    }
+
+    public function pendingAtShaGrievances() {
+        $results = $this->pendingAtShaDetails();
+        return view('sha.grievances.index', compact('results'));
+    }
+
+    public function unresolvedGrievances() {
+        $results = $this->usresolvedDetails();
+        return view('sha.grievances.index', compact('results'));
+    }
+
+    public function discardedGrievances() {
+        $results = $this->discardedDetails();
+        return view('sha.grievances.index', compact('results'));
+    }
+
 
 }

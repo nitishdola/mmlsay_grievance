@@ -55,6 +55,13 @@ Route::group(['prefix'=>'sha','as'=>'sha.', 'middleware' => 'is_sha'], function(
         Route::get('/', [ShaGrievancesController::class, 'index'])->name('index');
         Route::get('/view/{id}', [ShaGrievancesController::class, 'view'])->name('view');
         Route::post('/process/{id}', [ShaGrievancesController::class, 'process'])->name('process');
+        Route::get('/out-of-tat-grievances', [ShaGrievancesController::class, 'outOfTatGrievances'])->name('out_of_tat');
+        Route::get('/resolved-grievances', [ShaGrievancesController::class, 'resolvedGrievances'])->name('resolved');
+        Route::get('/pending-at-isa', [ShaGrievancesController::class, 'pendingAtIsaGrievances'])->name('isa_pending');
+        Route::get('/pending-at-sha', [ShaGrievancesController::class, 'pendingAtShaGrievances'])->name('sha_pending');
+        Route::get('/unresolved', [ShaGrievancesController::class, 'unresolvedGrievances'])->name('unresolved');
+        Route::get('/discarded', [ShaGrievancesController::class, 'discardedGrievances'])->name('discarded');
+        
     });
 
 });

@@ -15,6 +15,8 @@ class DashboardController extends Controller
         $out_tat = $this->grievanceOutTatCount();
         $resolved = $this->resolvedCount();
         $forwarded_to_isa = $this->forwardedToIsa();
-        return view('layouts.backend.sha.home', compact('grievance_count', 'out_tat', 'resolved', 'forwarded_to_isa'));
+        $unresolved = $this->unresolvedCount();
+        $discarded = $this->discardedCount();
+        return view('layouts.backend.sha.home', compact('grievance_count', 'out_tat', 'resolved', 'forwarded_to_isa', 'unresolved', 'discarded'));
     }
 }

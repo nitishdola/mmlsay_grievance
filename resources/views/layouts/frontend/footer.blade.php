@@ -33,6 +33,7 @@ Mukhya Mantri Lok Sevak Arogya Yojana</p>
 						<li><a href="#!">Official Atal Amrit Abhiyan Society Website</a></li>
 						<li><a href="#!">Recruitment</a></li>
 						<li><a href="#!">PMJAY Payment dashboard</a></li>
+						<li><a href="{{ url('/login') }}">Login</a></li>
 					</ul>
 				</div>
 			</div>

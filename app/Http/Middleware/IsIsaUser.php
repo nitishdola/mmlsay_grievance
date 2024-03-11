@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Redirect;
 class IsIsaUser
 {
     /**
@@ -19,6 +19,6 @@ class IsIsaUser
             return $next($request);
         }
    
-        return redirect('home')->with('error',"You don't have ISA User access.");
+        return Redirect::back()->with('error',"You don't have ISA User access.");
     }
 }

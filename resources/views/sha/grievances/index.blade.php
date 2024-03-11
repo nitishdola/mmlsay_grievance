@@ -48,6 +48,11 @@
                         </tbody>
                     </table>
 
+                   
+            <p class="mt-3">
+            {{ $results->links() }}
+</p>
+
                   </div>
                 </div>
               </div>
