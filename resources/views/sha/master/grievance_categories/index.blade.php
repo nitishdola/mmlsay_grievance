@@ -17,19 +17,26 @@
     <div class="row gy-4">
       <div class="col-xxl-3 col-md-6">
 
-      <form class="form-inline" action="{{ route('sha.master.grievance_category.save') }}" method="post">
-                @csrf
-        <div>
-            <label for="basiInput" class="form-label">Grievance Category Name</label>
-            <input type="text" class="form-control" id="name" name="name">
-        </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Sl</th>
+            <th>Grievance Category</th>
+            <th>Edit</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
 
-        <div class="input-group mt-3">
-            <button class="btn btn-primary" type="submit">SUBMIT</button>
-        </div>
-
-      </form>
-
+        <tbody>
+          @foreach($results as $k => $v)
+          <tr>
+            <td>{{ $k+1 }}</td>
+            <td>{{ $v->name}}</td>
+            <td><a href="{{ route('sha.master.grievance_category.edit', Crypt::encrypt($v->id)) }}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+            <td><a href="{{ route('sha.master.grievance_category.delete', Crypt::encrypt($v->id)) }}" onclick="return confirm('Are you sure ?')"><i class="fa-solid fa-trash"></i></a></td>
+          </tr>
+          @endforeach
+      </table>
       </div>
     </div>
   </div>

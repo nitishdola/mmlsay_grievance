@@ -78,7 +78,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="pages-starter.html" class="nav-link" data-key="t-starter"> View </a>
+                                <a href="{{ route('sha.master.grievance_category.index') }}" class="nav-link" data-key="t-starter"> View </a>
                             </li>
                         </ul>
                     </div>

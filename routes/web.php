@@ -46,6 +46,9 @@ Route::group(['prefix'=>'sha','as'=>'sha.', 'middleware' => 'is_sha'], function(
             Route::get('/create', [GrievanceCategoriesController::class, 'create'])->name('create');
             Route::post('/save', [GrievanceCategoriesController::class, 'save'])->name('save');
             Route::get('/', [GrievanceCategoriesController::class, 'index'])->name('index');
+            Route::get('/edit/{id}', [GrievanceCategoriesController::class, 'edit'])->name('edit');
+            Route::get('/delete/{id}', [GrievanceCategoriesController::class, 'delete'])->name('delete');
+            Route::post('/update/{id}', [GrievanceCategoriesController::class, 'update'])->name('update');
         });
     });
 
@@ -68,7 +71,6 @@ Route::group(['prefix'=>'sha','as'=>'sha.', 'middleware' => 'is_sha'], function(
 
 
 Route::group(['prefix'=>'isa','as'=>'isa.', 'middleware' => 'is_isa'], function(){
-
     Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {
         Route::get('/view-all', [IsaGrievancesController::class, 'index'])->name('index');
         Route::get('/view-all-isa-resolved', [IsaGrievancesController::class, 'isaResolved'])->name('isa_resolved');
