@@ -23,10 +23,19 @@ Route::get('/', function () {
     return view('layouts.frontend.home');
 });
 
+Route::get('/about', function () {
+    return view('frontend.about');
+});
+
+Route::get('/contact', function () {
+    return view('frontend.contact');
+});
+
 
 
 Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {
     Route::get('/raise', [UserGrievancesController::class, 'raiseGrievance'])->name('raise');
+    Route::get('/track', [UserGrievancesController::class, 'trackGrievance'])->name('track');
     Route::post('/save', [UserGrievancesController::class, 'saveGrievance'])->name('save');
     Route::get('/success', [UserGrievancesController::class, 'success'])->name('success');
 });

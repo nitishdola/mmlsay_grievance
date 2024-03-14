@@ -107,4 +107,31 @@ class UserGrievancesController extends Controller
         }
         return request()->ip(); // it will return the server IP if the client IP is not found using this method.
     } 
+
+
+    public function trackGrievance(Request $request) {
+        $data = [];
+        if($request->error_message == 'yes'){
+            if($request->ugn) {
+                $data['success'] = false;
+                $record = Grievance::whereUgn($request->ugn);
+                $data['ugn']        = $request->ugn;
+
+                if($record->count()) {
+                    $data['success']    = true;
+                    $data['status']     = $record->first()->status;
+                }else{
+                    $data['error_message'] = 'Invalid Grievance Registration Number entered.';
+                }
+
+            }else{
+                $data['error_message'] = 'Grievance Registration Number is required';
+            }
+        }
+        return view('frontend.track_grievance', compact('data'));
+    }
+
+    public function sendOTP() {
+        
+    }
 }

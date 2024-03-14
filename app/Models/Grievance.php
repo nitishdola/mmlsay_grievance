@@ -47,6 +47,7 @@ class Grievance extends Model
         'support_document'         => 'mimes:jpg,jpeg,png,bmp,pdf|max:102400',
         'support_video'            => 'mimetypes:video/avi,video/mp4,video/mpeg,video/quicktime|max:102400',
         'grievance_description'       => 'required',
+        'g-recaptcha-response' => 'recaptcha',
         //'ip_address'       => 'required',
     ];
 

@@ -29,10 +29,10 @@ Mukhya Mantri Lok Sevak Arogya Yojana</p>
 					<div class="divider mb-4"></div>
 
 					<ul class="list-unstyled footer-menu lh-35">
-						<li><a href="#!">MMLSAY Registration </a></li>
-						<li><a href="#!">Official Atal Amrit Abhiyan Society Website</a></li>
-						<li><a href="#!">Recruitment</a></li>
-						<li><a href="#!">PMJAY Payment dashboard</a></li>
+						<li><a href="https://mmlsay.assam.gov.in/" target="_blank">MMLSAY Registration </a></li>
+						<li><a href="https://atalamritabhiyan.assam.gov.in/" target="_blank">Official Atal Amrit Abhiyan Society Website</a></li>
+						<li><a href="https://sharecruitment.online/" target="_blank">Recruitment</a></li>
+						<li><a href="https://aaasdashboard.in/" target="_blank">PMJAY Payment dashboard</a></li>
 						<li><a href="{{ url('/login') }}">Login</a></li>
 					</ul>
 				</div>

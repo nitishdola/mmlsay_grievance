@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Redirect;
+
 class LoginController extends Controller
 {
     /*
@@ -20,6 +22,8 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected $decayMinutes = 30;
+    
     /**
      * Where to redirect users after login.
      *
@@ -45,6 +49,17 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            //return redirect('/login')->withErrors(array('error' => 'Your account has been disabled because of too many wrong attempts. Retry in '. $this->decayMinutes.' minutes'));
+            toastr()->error('Your account has been disabled because of too many wrong attempts');
+
+            return Redirect::route('login')->with(['message' => 'Your account has been disabled because of too many wrong attempts. Retry in '. $this->decayMinutes.' minutes', 'alert-class' => 'alert-danger']);
+
+       }
+       $this->incrementLoginAttempts($request);
+
    
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {

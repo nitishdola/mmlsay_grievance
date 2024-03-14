@@ -58,6 +58,23 @@
                                             <p class="text-muted">Sign in to continue to MMLSAY Grievance Portal.</p>
                                         </div>
 
+                                        @if ($errors->any())
+         {!! implode('', $errors->all('
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 alert alert-danger" role="alert">
+            <span class="font-medium">Oops !</span> ::message
+            </div>
+         ')) !!}
+      @endif
+      @if(Session::has('message'))
+                        <div class="row">
+                            <div class="col-lg-12">
+                            <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
+                                    {!! Session::get('message') !!}
+                            </div>
+                            </div>
+                        </div>
+                    @endif
+
                                         <div class="mt-4">
                                         <form method="POST" action="{{ route('login') }}">
                                             @csrf

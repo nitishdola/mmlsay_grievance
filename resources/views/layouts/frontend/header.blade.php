@@ -32,15 +32,13 @@
 
 			<div class="collapse navbar-collapse" id="navbarmain">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="service.html">Services</a></li>
-					<li class="nav-item"><a class="nav-link" href="service.html">Guidelines</a></li>
-					<li class="nav-item"><a class="nav-link" href="service.html">User Manual</a></li>
-
+					<li class="nav-item {{ Request::is('/*') ? 'active' : '' }}"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+					<li class="nav-item {{ Request::is('about*') ? 'active' : '' }}"><a class="nav-link" href="{{ url('/about') }}">About</a></li>
+					<li class="nav-item {{ Request::is('guidelines_mmlsay*') ? 'active' : '' }}"><a class="nav-link" href="{{ url('/guidelines_mmlsay.pdf') }}">Guidelines</a></li>
+					<li class="nav-itemnav-item {{ Request::is('/guidelines_mmlsay*') ? 'active' : '' }}"><a class="nav-link" href="{{ url('/MMLSAY_Grievance_Redressal_Mechanism.pdf') }}">User Manual</a></li>
 					
 
-					<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+					<li class="nav-item  {{ Request::is('contact*') ? 'active' : '' }}"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
 				</ul>
 			</div>
 		</div>

@@ -16,7 +16,7 @@
 					<div class="btn-container ">
 						<a href="{{ route('grievance.raise') }}" target="_blank" class="btn btn-main-2 btn-icon btn-round-full">REGISTER YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
 						
-						<a href="appoinment.html" target="_blank" class="btn btn-solid-border btn-icon btn-round-full">TRACK YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
+						<a href="{{ route('grievance.track') }}" target="_blank" class="btn btn-solid-border btn-icon btn-round-full">TRACK YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
 					</div>
 				</div>
 			</div>
@@ -60,12 +60,16 @@
 
 <section class="section testimonial-2 gray-bg">
 	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-lg-7">
-				<div class="section-title text-center">
-					<h2>ABOUT MMLSAY GRIEVANCE RESDRESSAL PORTAL</h2>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="section-title">
+					<h2>ABOUT MMLSAY</h2>
 					<div class="divider mx-auto my-4"></div>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum..</p>
+					<p>Mukhya Mantri Lok Sevak Arogya Yojana(MMLSAY) is a medical reimbursement scheme of the State Government which aims at providing medical reimbursement to Government employees including Government pensioners and their dependents at CGHS rates.
+</p>
+<p>
+
+Under Mukhya Mantri Lok Sevak Arogya Yojana, registration and medical reimbursement of Government employees, their dependents and Government pensioners and their spouses will be done through an online IT portal. This IT portal will be with end to end functioning. The address of the portal is https://mmlsay.assam.gov.in. Registration and reimbursement process can be done either by self or through assistance of the District Kiosks located in Medical Colleges/District Hospitals/ Offices of the Joint Director of Health Services. Certain information like Aadhaar Number, Contact Number and family details will have to be provided at the time of registration. For submitting claims, bank details and documents related to treatment in the concerned hospital are to be uploaded.</p>
 				</div>
 			</div>
 		</div>
