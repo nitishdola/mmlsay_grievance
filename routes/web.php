@@ -33,8 +33,14 @@ Route::get('/contact', function () {
 
 
 
+Route::get('/send-otp', [UserGrievancesController::class, 'sendOTP'])->name('sendOTP');
+
+
 Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {
-    Route::get('/raise', [UserGrievancesController::class, 'raiseGrievance'])->name('raise');
+    Route::get('/otp-screen', [UserGrievancesController::class, 'otpScreen'])->name('otp_screen');
+    Route::post('/otp-verify', [UserGrievancesController::class, 'otpVerify'])->name('otp_verify');
+    Route::post('/otp-verification', [UserGrievancesController::class, 'otpVerification'])->name('otp_verification');
+    Route::get('/raise/{gid}', [UserGrievancesController::class, 'raiseGrievance'])->name('raise');
     Route::get('/track', [UserGrievancesController::class, 'trackGrievance'])->name('track');
     Route::post('/save', [UserGrievancesController::class, 'saveGrievance'])->name('save');
     Route::get('/success', [UserGrievancesController::class, 'success'])->name('success');

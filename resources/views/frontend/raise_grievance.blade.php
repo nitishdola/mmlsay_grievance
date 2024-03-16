@@ -66,11 +66,7 @@
                   </select>
                </div>
             </div>
-            <div class="col-lg-6">
-               <div class="form-group">
-                  <input name="contact_number" id="time" type="text" class="form-control" placeholder="Contact Number">
-               </div>
-            </div>
+            
             <div class="col-lg-6">
                <div class="form-group">
                   <select class="form-control" name="district_id" id="district_id">
@@ -91,12 +87,11 @@
                     </select>
                </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                <div class="form-group">
                   <input name="address" id="address" type="text" class="form-control" placeholder="Address*">
                </div>
             </div>
-            <div class="col-lg-6"></div>
 
             <div class="col-lg-6">
                <div class="form-group">
@@ -126,6 +121,8 @@
          <div class="form-group-2 mb-4">
             <textarea name="grievance_description" id="grievance_description" class="form-control" rows="6" placeholder="Grievance Description*"></textarea>
          </div>
+
+         <input type="hidden" name="gid" value="{{ $gid }}" />
 
          {!! htmlFormSnippet() !!}
          
@@ -235,33 +232,8 @@
 					required: function(element) {
                         return $('#employment_type').val() === 'PENSIONER';
                     }
-				},
-
-            support_document: {
-               extension: "jpg|jpeg|png|bmp|pdf"
-            }
+				}
 			}
-		});
-
-		// propose username by combining first- and lastname
-		$("#username").focus(function() {
-			var firstname  = $("#firstname").val();
-			var lastname   = $("#lastname").val();
-			if (firstname && lastname && !this.value) {
-				this.value = firstname + "." + lastname;
-			}
-		});
-
-		//code to hide topic selection, disable for demo
-		var newsletter = $("#newsletter");
-		// newsletter topics are optional, hide at first
-		var inital = newsletter.is(":checked");
-		var topics = $("#newsletter_topics")[inital ? "removeClass" : "addClass"]("gray");
-		var topicInputs = topics.find("input").attr("disabled", !inital);
-		// show when newsletter is checked
-		newsletter.click(function() {
-			topics[this.checked ? "removeClass" : "addClass"]("gray");
-			topicInputs.attr("disabled", !this.checked);
 		});
    </script>
 @stop

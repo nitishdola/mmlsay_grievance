@@ -11,6 +11,8 @@ class Grievance extends Model
 
     protected $fillable = [
         'ugn', 
+        'otp',
+        'otp_sent_on',
         'grievance_raise_date',
         'status',
         'enrolled_under_mmlsay',
@@ -31,16 +33,12 @@ class Grievance extends Model
     ];
 
     public static $rules = [
-        //'ugn'       => 'required|unique:grievances|max:255',
-        //'status'    => 'required',
         'enrolled_under_mmlsay'    => 'required',
-        //'member_id'     => 'required',
         'pan_number'    => 'required',
         'full_name'     => 'required',
         'employment_type'    => 'required|in:EMPLOYEE,PENSIONER',
         'ppo_number'    => 'required_if:employment_type,==,PENSIONER',
         'gender'        => 'required',
-        'contact_number'    => 'required',
         'district_id'       => 'required|exists:districts,id',
         'grievance_category_id'         => 'required|exists:grievance_categories,id',
         'address'           => 'required|max:1000',
@@ -48,7 +46,6 @@ class Grievance extends Model
         'support_video'            => 'mimetypes:video/avi,video/mp4,video/mpeg,video/quicktime|max:102400',
         'grievance_description'       => 'required',
         'g-recaptcha-response' => 'recaptcha',
-        //'ip_address'       => 'required',
     ];
 
     public function district()

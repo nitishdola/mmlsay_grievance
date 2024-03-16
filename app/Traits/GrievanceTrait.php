@@ -17,7 +17,10 @@ trait GrievanceTrait {
       if($status != null) {
         $where['status'] = $status;
       }
-      return Grievance::orderBy('grievance_raise_date', 'DESC')->with('district', 'grievance_category')->where($where)->whereNull('deleted_at')->paginate(1000);
+
+      $where['status'] = $status;
+
+      return Grievance::orderBy('grievance_raise_date', 'DESC')->where('otp_verified_on', '!=', null )->with('district', 'grievance_category')->where($where)->whereNull('deleted_at')->paginate(1000);
     }
 
     public function viewGrievance($id) {
@@ -25,7 +28,7 @@ trait GrievanceTrait {
     }
 
     public function grievanceCount() {
-      return Grievance::count();
+      return Grievance::where('otp_verified_on', '!=', null )->count();
     }
 
     public function grievanceOutTatCount() {
@@ -34,7 +37,7 @@ trait GrievanceTrait {
       $date->modify('-8 day'); 
       $g_date = $date->format('Y-m-d');
 
-      return Grievance::where('grievance_raise_date', '<=', $g_date)->where('status', '!=', 'resolved')->count();
+      return Grievance::where('grievance_raise_date', '<=', $g_date)->where('otp_verified_on', '!=', null )->where('status', '!=', 'resolved')->count();
     }
 
     public function grievanceOutTatDetails() {
@@ -43,7 +46,7 @@ trait GrievanceTrait {
       $date->modify('-8 day'); 
       $g_date = $date->format('Y-m-d');
 
-      return Grievance::where('grievance_raise_date', '<=', $g_date)->where('status', '!=', 'resolved')->paginate(1000);
+      return Grievance::where('grievance_raise_date', '<=', $g_date)->where('otp_verified_on', '!=', null )->where('status', '!=', 'resolved')->paginate(1000);
     }
 
 
@@ -64,12 +67,12 @@ trait GrievanceTrait {
 
     public function unresolvedCount() {
 
-      return Grievance::where('status', '!=', 'resolved')->where('status', '!=', 'Discard')->count();
+      return Grievance::where('status', '!=', 'resolved')->where('status', '!=', 'Discard')->where('otp_verified_on', '!=', null )->count();
     }
 
     public function usresolvedDetails() {
 
-      return Grievance::where('status', '!=', 'resolved')->where('status', '!=', 'Discard')->paginate(1000);
+      return Grievance::where('status', '!=', 'resolved')->where('status', '!=', 'Discard')->where('otp_verified_on', '!=', null )->paginate(1000);
     }
 
     public function forwardedToIsa() {

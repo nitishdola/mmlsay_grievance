@@ -14,7 +14,7 @@
 					
 					<p class="mb-4 pr-5">GRIEVANCE AGAINST MMLSAY SERVICE.</p>
 					<div class="btn-container ">
-						<a href="{{ route('grievance.raise') }}" target="_blank" class="btn btn-main-2 btn-icon btn-round-full">REGISTER YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
+						<a href="{{ route('grievance.otp_screen') }}" target="_blank" class="btn btn-main-2 btn-icon btn-round-full">REGISTER YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
 						
 						<a href="{{ route('grievance.track') }}" target="_blank" class="btn btn-solid-border btn-icon btn-round-full">TRACK YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
 					</div>
