@@ -25,7 +25,7 @@ Mukhya Mantri Lok Sevak Arogya Yojana</p>
 
 			<div class="col-lg-4 col-md-6 col-sm-6">
 				<div class="widget mb-5 mb-lg-0">
-					<h4 class="text-capitalize mb-3">Importnat Links</h4>
+					<h4 class="text-capitalize mb-3">Important Links</h4>
 					<div class="divider mb-4"></div>
 
 					<ul class="list-unstyled footer-menu lh-35">

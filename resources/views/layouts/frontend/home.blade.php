@@ -10,9 +10,9 @@
 				<div class="block">
 					<div class="divider mb-3"></div>
 					<span class="text-uppercase text-sm letter-spacing "></span>
-					<h1 class="mb-3 mt-3">BOTTOM UP REDRESS MECHANISM</h1>
+					<h1 class="mb-3 mt-3">MMLSAY GRIEVANCE REDRESSAL SERVICE</h1>
 					
-					<p class="mb-4 pr-5">GRIEVANCE AGAINST MMLSAY SERVICE.</p>
+					<p class="mb-4 pr-5"></p>
 					<div class="btn-container ">
 						<a href="{{ route('grievance.otp_screen') }}" target="_blank" class="btn btn-main-2 btn-icon btn-round-full">REGISTER YOUR GRIEVANCE  <i class="icofont-simple-right ml-2  "></i></a>
 						

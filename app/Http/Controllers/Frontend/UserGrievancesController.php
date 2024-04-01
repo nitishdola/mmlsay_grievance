@@ -16,6 +16,7 @@ class UserGrievancesController extends Controller
 
     use ImageUploadTrait, VideoUploadTrait, SMSTrait;
 
+    
     public function raiseGrievance($gid) {
         $districts = District::orderBy('name')->get();
         $grievance_categories = GrievanceCategory::orderBy('name')->get();
@@ -74,11 +75,15 @@ class UserGrievancesController extends Controller
             toastr()->success('OTP Verified successfully');
 
             $grievance->otp_verified_on = date('Y-m-d H:i:s');
+            $grievance->status = 'OTP Verified';
             $grievance->save();
 
             $contact_number = $grievance->contact_number;
 
             return Redirect::route('grievance.raise', Crypt::encrypt($gid))->with(['message' => 'OTP Verified successfully', 'alert-class' => 'alert-success']);
+        }else{
+            toastr()->success('Invalid OTP entered  ');
+            return Redirect::route('otp_screen')->with(['message' => 'Invalid OTP entered', 'alert-class' => 'alert-success']);
         }
     }
     
@@ -133,10 +138,15 @@ class UserGrievancesController extends Controller
         
         $grievances['grievance_raise_date'] = date('Y-m-d H:i:s');
 
+
+        $grievance_category = GrievanceCategory::find($request->grievance_category_id);
+
         try {
             DB::beginTransaction();
             $grievance->fill($grievances);
             $grievance->save();
+            
+            $this->sendGrievanceRaisedSMS($grievance->contact_number, $request->full_name, $grievance_category->name, $grievance->ugn);
             
             DB::commit();
             toastr()->success('Grievance registered successfully');
@@ -171,7 +181,7 @@ class UserGrievancesController extends Controller
         if($request->error_message == 'yes'){
             if($request->ugn) {
                 $data['success'] = false;
-                $record = Grievance::whereUgn($request->ugn);
+                $record = Grievance::whereUgn($request->ugn)->where('otp_verified_on', '!=', null);
                 $data['ugn']        = $request->ugn;
 
                 if($record->count()) {

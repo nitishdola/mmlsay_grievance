@@ -8,6 +8,7 @@ use App\Http\Controllers\Isa\IsaDashboardController;
 use App\Http\Controllers\Frontend\UserGrievancesController;
 use App\Http\Controllers\Sha\ShaGrievancesController;
 use App\Http\Controllers\Isa\IsaGrievancesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,7 @@ Route::get('/', function () {
     return view('layouts.frontend.home');
 });
 
+
 Route::get('/about', function () {
     return view('frontend.about');
 });
@@ -34,6 +36,8 @@ Route::get('/contact', function () {
 
 
 Route::get('/send-otp', [UserGrievancesController::class, 'sendOTP'])->name('sendOTP');
+
+Route::get('/sendsms', [UserGrievancesController::class, 'sendsms']);
 
 
 Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {

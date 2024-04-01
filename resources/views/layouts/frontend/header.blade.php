@@ -20,9 +20,9 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navigation" id="navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">
-				<!--<img src="images/logo.png" alt="" class="img-fluid">-->
-				MMLSAY
+			<a class="navbar-brand" href="{{ url('/') }}">
+				<img src="images/logo.png" alt="" class="img-fluid">
+				Mukhya Mantri Lok Sevak Arogya Yojana
 			</a>
 
 			<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"

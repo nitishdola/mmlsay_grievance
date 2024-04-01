@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\Grievance;
 use App\Models\GrievanceFlow;
 use App\Models\GrievanceAttachment;
+use App\Models\Master\GrievanceCategory;
 use App\Traits\ImageUploadTrait;
 use App\Traits\GrievanceTrait;
+use App\Traits\SMSTrait;
 use Validator, DB, Redirect, Crypt;
 
 class ShaGrievancesController extends Controller
 {
-    use ImageUploadTrait,GrievanceTrait;
+    use ImageUploadTrait,GrievanceTrait,SMSTrait;
 
     public function index(Request $request) {
-        $results = $this->allGrievancesDetails();
+        $results = $this->allGrievancesDetails(); 
         return view('sha.grievances.index', compact('results'));
     }
 
@@ -48,6 +50,9 @@ class ShaGrievancesController extends Controller
         if($action == 'Forward To ISA') {
             $grievance_flow['isa_forward_date'] = date('Y-m-d H:i:s');
         }else{
+            $grievance_category = GrievanceCategory::find($grievance->grievance_category_id);
+            $this->sendGrievanceResolvedSMS($grievance->contact_number, $grievance->full_name, $grievance_category->name, $grievance->ugn);
+
             $grievance_flow['sha_resolve_date'] = date('Y-m-d H:i:s');
         }
 
@@ -104,7 +109,7 @@ class ShaGrievancesController extends Controller
     }
 
     public function unresolvedGrievances() {
-        $results = $this->usresolvedDetails();
+        $results = $this->usresolvedDetails(); //dd($results);
         return view('sha.grievances.index', compact('results'));
     }
 

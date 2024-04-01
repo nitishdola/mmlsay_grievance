@@ -38,7 +38,7 @@
                                 <td>{{ $v->status }}</td>
                                 <td>{{ $v->full_name }}</td>
                                 <td>{{ $v->employment_type }}</td>
-                                <td>{{ $v->ppo_number }}</td>
+                                <td>{{ $v->contact_number }}</td>
                                 <td>{{ $v->district->name }}</td>
                                 <td>{{ $v->grievance_category->name }}</td>
                                 <td></td>
