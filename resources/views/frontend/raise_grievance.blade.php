@@ -34,12 +34,12 @@
             </div>
             <div class="col-lg-6">
                <div class="form-group">
-                  <input name="pan_number" id="date" type="text" class="form-control pan" placeholder="PAN Number*">
+                  <input name="pan_number" id="pan_number" type="text" class="form-control pan" placeholder="PAN Number*">
                </div>
             </div>
             <div class="col-lg-6">
                <div class="form-group">
-                  <input name="full_name" id="name" type="text" class="form-control" placeholder="Full Name*">
+                  <input name="full_name" id="full_name" type="text" class="form-control" placeholder="Full Name*">
                </div>
             </div>
             <div class="col-lg-6">
@@ -66,6 +66,13 @@
                   </select>
                </div>
             </div>
+
+            <div class="col-lg-8">
+               <div class="form-group">
+                  <input name="address" id="address" type="text" class="form-control" placeholder="Address*">
+               </div>
+            </div>
+            
             
             <div class="col-lg-6">
                <div class="form-group">
@@ -87,11 +94,7 @@
                     </select>
                </div>
             </div>
-            <div class="col-lg-8">
-               <div class="form-group">
-                  <input name="address" id="address" type="text" class="form-control" placeholder="Address*">
-               </div>
-            </div>
+           
 
             <div class="col-lg-6">
                <div class="form-group">
@@ -174,6 +177,7 @@
 
 @section('pageJs')
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" integrity="sha512-eYSzo+20ajZMRsjxB6L7eyqo5kuXuS2+wEbbOkpaur+sA2shQameiJiWEzCIDwJqaB0a4a6tCuEvCOBHUg3Skg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   $('#enrolled_under_mmlsay').change(function() {
     if($(this).val() == 'Yes') {
@@ -183,6 +187,59 @@
     }
   });
 
+  $('.member_id').keyup(function() {
+      let length = $('.member_id').val().length;
+      
+      if(length >= 6) {
+
+         $.blockUI({ message: '<h1> Fetching Details...</h1>' });
+
+         var url  =  '';
+         var data = '';
+
+         url += "{{ route('ben_data_api') }}";
+         data += "&member_id="+$('.member_id').val();
+
+
+         $.ajax({
+            url : url,
+            data : data,
+            type : 'GET',
+            dataType : 'json',
+
+            success : function(resp) {
+
+               $.unblockUI();
+               if(resp.status == 'OK') {
+                  //console.log(resp.data.self)
+
+                  $('#full_name').prop('readonly', true);
+                  $('#full_name').val(resp.data.self.name);
+
+                  $('#pan_number').prop('readonly', true);
+                  $('#pan_number').val(resp.data.self.pan);
+
+                  $('#gender').attr('readonly', true);
+                  $('#gender').val(resp.data.self.gender);
+
+                  $('#district_id').attr('readonly', true);  
+                  $('#district_id option:selected').text(resp.data.self.district.toUpperCase);
+
+                  $('#address').prop('readonly', true);
+                  $('#address').val(resp.data.self.present_address);
+
+               }else{
+                  alert(resp.message)
+               }
+               
+            },
+
+            error : function(resp) {
+               alert('Error fetching MMLSAY API server, please try aagain after sometime.')
+            }
+         });
+      }
+  });
 
   $('#employment_type').change(function() {
     if($(this).val() == 'PENSIONER') {
