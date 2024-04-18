@@ -67,23 +67,30 @@
                </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                <div class="form-group">
                   <input name="address" id="address" type="text" class="form-control" placeholder="Address*">
                </div>
             </div>
             
             
-            <div class="col-lg-6">
+            <div class="col-lg-8" id="district">
                <div class="form-group">
                   <select class="form-control" name="district_id" id="district_id">
                   <option value="">Select District</option>
                     @foreach($districts as $k => $v)
-                    <option value="{{ $v->id }}">{{ $v->name }}</option>
+                    <option value="{{ $v->name }}">{{ $v->name }}</option>
                     @endforeach
                   </select>
                </div>
             </div>
+
+            <div class="col-lg-8" id="api_district" style="display:none">
+               <div class="form-group">
+                     <input name="api_district" id="api_district_name" type="text" class="form-control" />
+               </div>
+            </div>
+            
             <div class="col-lg-6">
                <div class="form-group">
                     <select class="form-control" name="grievance_category_id" id="grievance_category_id">
@@ -92,6 +99,12 @@
                         <option value="{{ $v->id }}">{{ $v->name }}</option>
                         @endforeach 
                     </select>
+               </div>
+            </div>
+
+            <div class="col-lg-6">
+               <div class="form-group" id="grv_cat" style="display:none">
+                  <input name="user_grievance_category" id="user_grievance_category" type="text" class="form-control" placeholder="Grievance Category*">
                </div>
             </div>
            
@@ -187,6 +200,15 @@
     }
   });
 
+
+  $('#grievance_category_id').change(function() {
+   
+   if($('#grievance_category_id').val() == 7) {
+      $('#grv_cat').show();
+   }else{
+      $('#grv_cat').hide();
+   }
+  })
   $('.member_id').keyup(function() {
       let length = $('.member_id').val().length;
       
@@ -213,6 +235,9 @@
                if(resp.status == 'OK') {
                   //console.log(resp.data.self)
 
+                  $('#district').hide();
+                  $('#api_district').show();
+
                   $('#full_name').prop('readonly', true);
                   $('#full_name').val(resp.data.self.name);
 
@@ -222,8 +247,9 @@
                   $('#gender').attr('readonly', true);
                   $('#gender').val(resp.data.self.gender);
 
-                  $('#district_id').attr('readonly', true);  
-                  $('#district_id option:selected').text(resp.data.self.district.toUpperCase);
+                  $('#api_district_name').attr('readonly', true); 
+                  //console.log(resp.data.self.district); 
+                  $('#api_district_name').val(resp.data.self.district);
 
                   $('#address').prop('readonly', true);
                   $('#address').val(resp.data.self.present_address);
@@ -285,6 +311,13 @@
                         return $('#enrolled_under_mmlsay').val() === 'Yes';
                     }
 				},
+
+            user_grievance_category: {
+					required: function(element) {
+                        return $('#grievance_category_id').val() === 7;
+                    }
+				},
+
 				ppo_number: {
 					required: function(element) {
                         return $('#employment_type').val() === 'PENSIONER';

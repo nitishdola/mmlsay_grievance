@@ -11,7 +11,7 @@ trait SMSTrait {
      * @return $this|false|string
      */
     public function sendOTP($otp, $mobile_number) {
-      Msg91::sms()->to(['91'.$mobile_number])->flow('62d4f96554f44b38077a936e')
+      Msg91::sms()->to(['91'.$mobile_number])->flow('6615162ad6fc050ff35bbd32')
                                 ->variable('OTP', $otp)
                                 ->send();
     }

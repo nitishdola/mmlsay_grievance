@@ -121,7 +121,7 @@
                                   <p class="text-uppercase fw-semibold fs-12 text-muted mb-1">Pending at ISA</p>
                                   <h4 class=" mb-0">
                                   <a href="{{ route('sha.grievance.isa_pending') }}">  
-                                    {{ $forwarded_to_isa }}
+                                    {{ $pending_at_isa }}
                                     </a>
                                     </h4>
                               </div>

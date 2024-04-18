@@ -86,6 +86,13 @@
                             <th>Grievance Category :</th>
                             <td>{{ $result->grievance_category->name }}</td>
                         </tr>
+                        
+                        @if($result->user_grievance_category)
+                        <tr>
+                            <th>Grievance Category :</th>
+                            <td>{{ $result->user_grievance_category }}</td>
+                        </tr>
+                        @endif
                     </table>
 
                     <table class="table mb-0 table-bordered">
@@ -151,12 +158,9 @@
                     </table>
                     @endif
                     @php 
-                        $reply_isa_arr = ['Forward To ISA'];
+                        $reply_isa_arr = ['Grievance Registered', 'Forward To ISA'];
                     @endphp
                     @if(in_array($result->status, $reply_isa_arr))
-
-                    
-
 
                     <div class="col-md-12 mt-3"><h4>Action </h4></div>
 
@@ -170,7 +174,8 @@
                                 
                                 <select class="form-control" name="action">
                                     <option value="">Select Action</option>
-                                    <option value="ISA Resolved">Issue Resolved, Forward to SHA</option>
+                                    <option value="ISA Resolved">Issue Resolved</option>
+                                    <option value="Discarded at ISA">Discard</option>
                                 </select>
                             </div>
                             <div class="mt-3 attachment">

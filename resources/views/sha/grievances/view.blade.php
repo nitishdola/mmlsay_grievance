@@ -170,8 +170,8 @@
                                 
                                 <select class="form-control" name="action">
                                     <option value="">Select Action</option>
-                                    <option value="Resolved">Resolved</option>
-                                    <option value="Discard">Discard</option>
+                                    <option value="SHA Resolved">Resolved</option>
+                                    <option value="Discard at SHA">Discard</option>
                                     <option value="Forward To ISA">Forward To ISA</option>
                                 </select>
                             </div>

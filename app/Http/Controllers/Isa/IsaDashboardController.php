@@ -11,7 +11,8 @@ class IsaDashboardController extends Controller
     use GrievanceTrait;
 
     public function dashboard() {
-        $forwarded_to_isa = $this->forwardedToIsa();
-        return view('layouts.backend.isa.home', compact('forwarded_to_isa'));
+        $pending_at_isa = $this->pendingAtIsa();
+        $all_isa_cases = $this->allIsaCases();
+        return view('layouts.backend.isa.home', compact('pending_at_isa', 'all_isa_cases'));
     }
 }

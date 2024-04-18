@@ -12,8 +12,8 @@ class ApiController extends Controller
         //121183
         $param['type']      = "MEMBER";  
         $param['value']     = $request->member_id;  
-        $account_id = '4DE12A3AD964B85C6A6B626D9232C'; 
-        $api_key = 'JVrzScOQpcyz7JSrp6721rnB2rNkeGbSzdsvpFhzFAYqiSrX3LXaujpaFCh0MJy9BsDJKjWWciU2Fxyr0qZc894FxHNdhwGguYJS4coqmh3SqzcX5hFAS4IMBoDfZevh';    
+        $account_id = env('MMLSAY_ACCOUNT_ID');
+        $api_key = env('MMLSAY_API_KEY');    
         $url = 'https://aaa-backend.assam.statedatacenter.in/beneficiary/WmAB9fTCLhDAMeMLsoCma53HnrNiQWgG';
 
         $response = Http::withHeaders([

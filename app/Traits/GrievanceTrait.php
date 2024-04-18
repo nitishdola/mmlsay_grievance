@@ -36,7 +36,7 @@ trait GrievanceTrait {
       $date->modify('-8 day'); 
       $g_date = $date->format('Y-m-d');
 
-      return Grievance::where('grievance_raise_date', '<=', $g_date)->whereNotIn('status', ['OTP Sent', 'OTP Verified'] )->where('status', '!=', 'resolved')->count();
+      return Grievance::where('grievance_raise_date', '<=', $g_date)->whereNotIn('status', ['OTP Sent', 'OTP Verified', 'ISA Resolved', 'SHA Resolved'] )->count();
     }
 
     public function grievanceOutTatDetails() {
@@ -45,38 +45,46 @@ trait GrievanceTrait {
       $date->modify('-8 day'); 
       $g_date = $date->format('Y-m-d');
 
-      return Grievance::where('grievance_raise_date', '<=', $g_date)->whereNotIn('status', ['OTP Sent', 'OTP Verified'] )->where('status', '!=', 'resolved')->paginate(1000);
+      return Grievance::where('grievance_raise_date', '<=', $g_date)->whereNotIn('status', ['OTP Sent', 'OTP Verified', 'ISA Resolved', 'SHA Resolved'] )->paginate(1000);
     }
 
 
     public function resolvedCount() {
 
-      return Grievance::where('status', 'resolved')->count();
+      return Grievance::whereIn('status', ['ISA Resolved', 'SHA Resolved'])->count();
+    }
+
+    public function resolvedDetails() {
+
+      return Grievance::whereIn('status', ['ISA Resolved', 'SHA Resolved'])->paginate(1000);
     }
 
     public function discardedCount() {
 
-      return Grievance::where('status', 'Discard')->count();
+      return Grievance::wherein('status', ['Discard at SHA', 'Discard at ISA'])->count();
     }
 
     public function discardedDetails() {
 
-      return Grievance::where('status', 'Discard')->paginate(1000);
+      return Grievance::wherein('status', ['Discard at SHA', 'Discard at ISA'])->paginate(1000);
     }
 
     public function unresolvedCount() {
 
-      return Grievance::where('status', '!=', 'resolved')->where('status', '!=', 'Discard')->whereNotIn('status', ['OTP Sent', 'OTP Verified'] )->count();
+      return Grievance::whereNotIn('status', ['OTP Sent', 'OTP Verified', 'ISA Resolved', 'SHA Resolved', 'Discard at ISA', 'Discard at SHA'] )->count();
     }
 
     public function usresolvedDetails() {
 
-      return Grievance::where('status', '!=', 'resolved')->where('status', '!=', 'Discard')->whereNotIn('status', ['OTP Sent', 'OTP Verified'] )->with('district', 'grievance_category')->paginate(1000);
+      return Grievance::whereNotIn('status', ['OTP Sent', 'OTP Verified', 'ISA Resolved', 'SHA Resolved', 'Discard at ISA', 'Discard at SHA'] )->paginate(1000);
     }
 
-    public function forwardedToIsa() {
+    public function pendingAtIsa() {
+      return Grievance::whereIn('status', ['Grievance Registered', 'Forward To ISA'])->count();
+    }
 
-      return Grievance::where('status', 'Forward To ISA')->count();
+    public function allIsaCases() {
+      return Grievance::whereIn('status', ['Grievance Registered', 'ISA Resolved', 'Discarded at ISA', 'Forward To ISA'])->count();
     }
 
     public function pendingAtSha() {
@@ -88,7 +96,6 @@ trait GrievanceTrait {
     }
 
     public function resolvedAtIsa() {
-
       return Grievance::where('status', 'ISA Resolved')->count();
     }
 

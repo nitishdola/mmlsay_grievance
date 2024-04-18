@@ -93,7 +93,7 @@ class ShaGrievancesController extends Controller
     }
 
     public function resolvedGrievances() {
-        $results = $this->allGrievancesDetails($status = 'Resolved');
+        $results = $this->resolvedDetails();
         return view('sha.grievances.index', compact('results'));
     }
     //Forward To ISA

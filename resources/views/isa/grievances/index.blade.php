@@ -10,6 +10,7 @@
             </div><!-- end card header -->
 
             <div class="card-body">
+              @if(count($results))
                 <div class="live-preview">
                     <div class="table-responsive">
 
@@ -38,7 +39,7 @@
                                 <td>{{ $v->status }}</td>
                                 <td>{{ $v->full_name }}</td>
                                 <td>{{ $v->employment_type }}</td>
-                                <td>{{ $v->ppo_number }}</td>
+                                <td>{{ $v->contact_number }}</td>
                                 <td>{{ $v->district->name }}</td>
                                 <td>{{ $v->grievance_category->name }}</td>
                                 <td></td>
@@ -51,6 +52,12 @@
                   </div>
                 </div>
               </div>
+              @else
+              <div class="alert alert-warning">
+                  <h3>No Cases found !</h3>
+              </div>
+
+              @endif
             </div>
           </div>
         </div>

@@ -14,7 +14,13 @@ class IsaGrievancesController extends Controller
     use ImageUploadTrait;
 
     public function index(Request $request) {
-        $results = Grievance::orderBy('grievance_raise_date', 'DESC')->with('district', 'grievance_category')->where('status', 'Forward To ISA')->whereNull('deleted_at')->paginate(1000);
+
+        if($request->case_status == 'view_pendning') {
+            $results = Grievance::orderBy('grievance_raise_date', 'DESC')->with('district', 'grievance_category')->where('status', 'Grievance Registered')->whereNull('deleted_at')->paginate(1000);
+        }else{
+            $results = Grievance::orderBy('grievance_raise_date', 'DESC')->with('district', 'grievance_category')->whereIn('status', ['Grievance Registered', 'ISA Resolved', 'Discarded at ISA'])->whereNull('deleted_at')->paginate(1000);
+        }
+        
         return view('isa.grievances.index', compact('results'));
     }
 
@@ -29,7 +35,6 @@ class IsaGrievancesController extends Controller
     }
 
     public function process(Request $request, $grievance_id) {
-
         $this->validate($request,[
             'action'        => 'required',
             'isa_remarks'   => 'required',
