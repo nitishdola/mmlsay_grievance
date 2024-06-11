@@ -37,7 +37,7 @@ Route::get('/contact', function () {
 
 Route::get('/send-otp', [UserGrievancesController::class, 'sendOTP'])->name('sendOTP');
 
-Route::get('/sendsms', [UserGrievancesController::class, 'sendsms']);
+Route::get('/sendsms', [UserGrievancesController::class, 'sendSMS']);
 
 
 Route::group(['prefix' => 'grievance', 'as' => 'grievance.'], function () {

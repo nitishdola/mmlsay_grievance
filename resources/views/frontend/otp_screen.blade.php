@@ -5,6 +5,19 @@
 <div class="col-lg-12 mb-3">
    <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
       <h2 class="mb-2 title-color">Verify Your Mobile Number</h2>
+
+
+      @if(Session::has('message'))
+                        <div class="row">
+                            <div class="col-lg-6">
+                            <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {!! Session::get('message') !!}
+                            </div>
+                            </div>
+                        </div>
+                    @endif
+
       @if ($errors->any())
          {!! implode('', $errors->all('
             <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 alert alert-danger" role="alert">

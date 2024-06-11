@@ -51,7 +51,7 @@ class ShaGrievancesController extends Controller
             $grievance_flow['isa_forward_date'] = date('Y-m-d H:i:s');
         }else{
             $grievance_category = GrievanceCategory::find($grievance->grievance_category_id);
-            $this->sendGrievanceResolvedSMS($grievance->contact_number, $grievance->full_name, $grievance_category->name, $grievance->ugn);
+            $this->sendGrievanceResolvedSMS($grievance->contact_number, $grievance->full_name, $grievance->ugn);
 
             $grievance_flow['sha_resolve_date'] = date('Y-m-d H:i:s');
         }

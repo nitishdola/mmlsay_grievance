@@ -8,10 +8,11 @@ use App\Models\Grievance;
 use App\Models\GrievanceFlow;
 use App\Models\GrievanceAttachment;
 use App\Traits\ImageUploadTrait;
+use App\Traits\SMSTrait;
 use Validator, DB, Redirect, Crypt;
 class IsaGrievancesController extends Controller
 {
-    use ImageUploadTrait;
+    use ImageUploadTrait,SMSTrait;
 
     public function index(Request $request) {
 
@@ -80,8 +81,9 @@ class IsaGrievancesController extends Controller
             return Redirect::back();
         }
         
+        $this->sendGrievanceResolvedSMS($grievance->contact_number, $grievance->full_name, $grievance->ugn);
 
-        toastr()->success('Grievance Forwarded to SHA successfully');
+        toastr()->success('Grievance Closed');
 
         return Redirect::route('isa.grievance.isa_resolved')->with(['message' => 'Grievance Forwarded to SHA successfully', 'alert-class' => 'alert-success']);
     }

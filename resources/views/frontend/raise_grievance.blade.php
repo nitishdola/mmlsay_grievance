@@ -79,7 +79,7 @@
                   <select class="form-control" name="district_id" id="district_id">
                   <option value="">Select District</option>
                     @foreach($districts as $k => $v)
-                    <option value="{{ $v->name }}">{{ $v->name }}</option>
+                    <option value="{{ $v->id }}">{{ $v->name }}</option>
                     @endforeach
                   </select>
                </div>
@@ -146,6 +146,7 @@
       </form>
    </div>
 </div>
+
 @stop
 
 @section('pageCss')
@@ -158,6 +159,8 @@
 
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<link href="{{ asset('frontend/css/jquery.msg.css') }}" rel="stylesheet" />
 
 <script type="text/javascript">
    function callbackThen(response) {
@@ -190,8 +193,16 @@
 
 @section('pageJs')
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" integrity="sha512-eYSzo+20ajZMRsjxB6L7eyqo5kuXuS2+wEbbOkpaur+sA2shQameiJiWEzCIDwJqaB0a4a6tCuEvCOBHUg3Skg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.4.1/jquery-migrate.min.js" integrity="sha512-KgffulL3mxrOsDicgQWA11O6q6oKeWcV00VxgfJw4TcM8XRQT8Df9EsrYxDf7tpVpfl3qcYD96BpyPvA4d1FDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('frontend/js/jquery.center.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.msg.js') }}"></script>
+
+
+
 <script>
+
+   
   $('#enrolled_under_mmlsay').change(function() {
     if($(this).val() == 'Yes') {
       $('.member_id').show();
@@ -209,12 +220,17 @@
       $('#grv_cat').hide();
    }
   })
-  $('.member_id').keyup(function() {
+
+$( document ).ready(function() {
+   $('.member_id').keyup(function() {
       let length = $('.member_id').val().length;
       
       if(length >= 6) {
 
-         $.blockUI({ message: '<h1> Fetching Details...</h1>' });
+         //$.blockUI({ message: '<h1> Fetching Details...</h1>' });
+
+         $.msg({ content : 'Fetching details, please wait', autoUnblock : false  });
+         
 
          var url  =  '';
          var data = '';
@@ -231,7 +247,7 @@
 
             success : function(resp) {
 
-               $.unblockUI();
+               $.msg('unblock');
                if(resp.status == 'OK') {
                   //console.log(resp.data.self)
 
@@ -255,17 +271,40 @@
                   $('#address').val(resp.data.self.present_address);
 
                }else{
+                  $('#full_name').prop('readonly', false);
+                  $('#full_name').val('');
+
+                  $('#pan_number').prop('readonly', false);
+                  $('#pan_number').val('');
+
+                  $('#gender').attr('readonly', false);
+                  $('#gender').val('');
+
+                  $('#api_district_name').attr('readonly', false); 
+                  //console.log(resp.data.self.district); 
+                  $('#api_district_name').val('');
+
+                  $('#address').prop('readonly', false);
+                  $('#address').val('');
+
+                  $('#member_id').val('');
+                  $('#enrolled_under_mmlsay').val('No');
+                  
                   alert(resp.message)
+
                }
                
             },
 
             error : function(resp) {
+               $.msg('unblock');
                alert('Error fetching MMLSAY API server, please try aagain after sometime.')
             }
          });
       }
   });
+});
+  
 
   $('#employment_type').change(function() {
     if($(this).val() == 'PENSIONER') {

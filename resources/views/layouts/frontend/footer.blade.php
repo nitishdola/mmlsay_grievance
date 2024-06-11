@@ -50,7 +50,7 @@ Mukhya Mantri Lok Sevak Arogya Yojana</p>
 							<i class="icofont-email mr-3"></i>
 							<span class="h6 mb-0">Support Email</span>
 						</div>
-						<h4 class="mt-2"><a href="mailto:grievance.mmlsay@aaasassam">grievance.mmlsay@aaasassam</a></h4>
+						<h4 class="mt-2"><a href="mailto:support.mmlsay@aaasassam">support.mmlsay@aaasassam</a></h4>
 					</div>
 
 					<div class="footer-contact-block">

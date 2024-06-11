@@ -16,6 +16,15 @@ class UserGrievancesController extends Controller
 
     use ImageUploadTrait, VideoUploadTrait, SMSTrait;
 
+    public function sendSMS() {
+        //$this->sendGrievanceRaisedSMS('9706125041', 'Nitish Dolakasharia', 'LHGBY-2355-897');
+
+        Msg91::sms()->to(['919706125041'])->flow('66614c43d6fc05424a3af462')
+                                ->variable('var1', 'Nitish')
+                                ->variable('var2', '456DFFF')
+                                ->send();
+
+    }
     
     public function raiseGrievance($gid) {
         $districts = District::orderBy('name')->get();
@@ -82,8 +91,8 @@ class UserGrievancesController extends Controller
 
             return Redirect::route('grievance.raise', Crypt::encrypt($gid))->with(['message' => 'OTP Verified successfully', 'alert-class' => 'alert-success']);
         }else{
-            toastr()->success('Invalid OTP entered  ');
-            return Redirect::route('otp_screen')->with(['message' => 'Invalid OTP entered', 'alert-class' => 'alert-success']);
+            toastr()->error('Invalid OTP entered. Please enter your mobile number again to verify. ');
+            return Redirect::route('grievance.otp_screen')->with(['message' => 'Invalid OTP entered. Please enter your mobile number again to verify', 'alert-class' => 'alert-danger']);
         }
     }
     
@@ -106,6 +115,16 @@ class UserGrievancesController extends Controller
         $validator = Validator::make($request->all(), Grievance::$rules);
         if ($validator->fails()) return Redirect::back()->withErrors($validator)->withInput();
 
+        if($request->api_district) {
+            if(District::where('name', $request->api_district)->count()) {
+                $district_id = District::where('name', $request->api_district)->first()->id;
+            }else{
+                return Redirect::back()->with(['message' => 'API District not available in Database', 'alert-class' => 'alert-danger']);
+            }
+        }else{
+            $district_id = $request->district_id;
+        }
+
         $grievances['status']       = 'Grievance Registered';
         $grievances['enrolled_under_mmlsay'] = $request->enrolled_under_mmlsay;
         $grievances['member_id']    = $request->member_id;
@@ -114,7 +133,7 @@ class UserGrievancesController extends Controller
         $grievances['employment_type']          = $request->employment_type;
         $grievances['ppo_number']   = $request->ppo_number;
         $grievances['gender']       = $request->gender;
-        $grievances['district_id']       = $request->district_id;
+        $grievances['district_id']       = $district_id;
         $grievances['grievance_category_id']       = $request->grievance_category_id;
         $grievances['address']       = $request->address;
         $grievances['grievance_description']       = $request->grievance_description;
@@ -146,7 +165,7 @@ class UserGrievancesController extends Controller
             $grievance->fill($grievances);
             $grievance->save();
             
-            $this->sendGrievanceRaisedSMS($grievance->contact_number, $request->full_name, $grievance_category->name, $grievance->ugn);
+            $this->sendGrievanceRaisedSMS($grievance->contact_number, $request->full_name, $grievance->ugn);
             
             DB::commit();
             toastr()->success('Grievance registered successfully');
